@@ -58,6 +58,12 @@
 		 */
 		$fileList: null,
 
+		$header: null,
+		headers: [],
+
+		$footer: null,
+		footers: [],
+
 		/**
 		 * @type OCA.Files.BreadCrumb
 		 */
@@ -262,6 +268,8 @@
 			this.$container = options.scrollContainer || $(window);
 			this.$table = $el.find('table:first');
 			this.$fileList = $el.find('#fileList');
+			this.$header = $el.find('#filelist-header');
+			this.$footer = $el.find('#filelist-footer');
 
 			if (!_.isUndefined(this._filesConfig)) {
 				this._filesConfig.on('change:showhidden', function() {
@@ -408,6 +416,40 @@
 
 
 			OC.Plugins.attach('OCA.Files.FileList', this);
+
+			this.initHeadersAndFooters()
+		},
+
+		initHeadersAndFooters: function() {
+			this.headers.sort(function(a, b) {
+				return a.order - b.order;
+			})
+			this.footers.sort(function(a, b) {
+				return a.order - b.order;
+			})
+			var uniqueIds = [];
+			this.headers.forEach((header) => {
+				if (header.id) {
+					if (uniqueIds.indexOf(header.id) !== -1) {
+						return
+					}
+					uniqueIds.push(header.id)
+				}
+				this.$header.append(header.el)
+				setTimeout(() => header.render(this), 0)
+			})
+
+			uniqueIds = [];
+			this.footers.forEach((footer) => {
+				if (footer.id) {
+					if (uniqueIds.indexOf(footer.id) !== -1) {
+						return
+					}
+					uniqueIds.push(footer.id)
+				}
+				this.$footer.append(footer.el)
+				setTimeout(() => footer.render(this), 0)
+			})
 		},
 
 		/**
@@ -3642,6 +3684,18 @@
 			}
 
 			return null;
+		},
+
+		registerHeader: function(header) {
+			this.headers.push(
+				_.defaults(header, { order: 0 })
+			);
+		},
+
+		registerFooter: function(header) {
+			this.footers.push(
+				_.defaults(header, { order: 0 })
+			);
 		}
 	};
 
