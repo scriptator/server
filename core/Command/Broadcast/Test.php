@@ -43,10 +43,14 @@ class Test extends Command {
 				$this->channel = $channel;
 			}
 
-			public function getChannels(): array {
+			public function getUids(): array {
 				return [
-					$this->channel,
+					'admin',
 				];
+			}
+
+			public function getChannel(): string {
+				return $this->channel;
 			}
 
 			public function jsonSerialize() {

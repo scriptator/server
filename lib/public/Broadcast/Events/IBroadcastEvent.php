@@ -10,21 +10,32 @@ use JsonSerializable;
 interface IBroadcastEvent {
 
 	/**
-	 * @since 18.0.0
 	 * @return string the name of the event
+	 * @since 18.0.0
 	 */
 	public function getName(): string;
 
 	/**
-	 * @since 18.0.0
 	 * @return string[]
+	 * @since 18.0.0
 	 */
-	public function getChannels(): array;
+	public function getUids(): array;
+
+	/**
+	 * @return string
+	 * @since 18.0.0
+	 */
+	public function getChannel(): string;
+
+	/**
+	 * @return JsonSerializable the data to be sent to the client
+	 * @since 18.0.0
+	 */
+	public function getPayload(): JsonSerializable;
 
 	/**
 	 * @since 18.0.0
-	 * @return JsonSerializable the data to be sent to the client
 	 */
-	public function getPayload(): JsonSerializable;
+	public function setBroadcasted(): void;
 
 }

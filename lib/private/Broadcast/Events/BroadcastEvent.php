@@ -27,12 +27,20 @@ class BroadcastEvent extends Event implements IBroadcastEvent {
 		return $this->name;
 	}
 
-	public function getChannels(): array {
-		return $this->event->getChannels();
+	public function getUids(): array {
+		return $this->event->getUids();
+	}
+
+	public function getChannel(): string {
+		return $this->event->getChannel();
 	}
 
 	public function getPayload(): JsonSerializable {
 		return $this->event;
+	}
+
+	public function setBroadcasted(): void {
+		$this->event->setBroadcasted();
 	}
 
 }
