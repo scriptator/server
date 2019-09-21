@@ -18,6 +18,7 @@ OC.L10N.register(
     "Shares will show up here" : "Les comparticions es mostraran aquí",
     "Restore share" : "Restaura una compartició",
     "Something happened. Unable to restore the share." : "Alguna cosa ha passat. No es pot restaurar la compartició.",
+    "This will stop your current uploads." : "Això aturarà les càrregues actuals.",
     "Move or copy" : "Mou o copia",
     "Download" : "Baixa",
     "Delete" : "Suprimeix",
@@ -138,7 +139,6 @@ OC.L10N.register(
     "Select or drop files" : "Selecciona o deixa anar els fitxers",
     "Uploading files…" : "S'està carregant fitxers...",
     "Uploaded files:" : "Fitxers carregats:",
-    "By uploading files, you agree to the %1$sterms of service%2$s." : "Si carregueu els fitxers accepteu les %1$scondicions del servei%2$s.",
-    "Sharing %s failed because the back end does not allow shares from type %s" : "No s'ha pogut compartir %s perquè l'aplicació de fons no permet comparticions del tipus%s"
+    "By uploading files, you agree to the %1$sterms of service%2$s." : "Si carregueu els fitxers accepteu les %1$scondicions del servei%2$s."
 },
 "nplurals=2; plural=(n != 1);");
