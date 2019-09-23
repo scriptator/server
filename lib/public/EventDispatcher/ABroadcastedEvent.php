@@ -30,12 +30,6 @@ abstract class ABroadcastedEvent extends Event implements JsonSerializable {
 	abstract public function getUids(): array;
 
 	/**
-	 * @return string
-	 * @since 18.0.0
-	 */
-	abstract public function getChannel(): string;
-
-	/**
 	 * @since 18.0.0
 	 */
 	public function setBroadcasted(): void {

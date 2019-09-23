@@ -22,12 +22,6 @@ interface IBroadcastEvent {
 	public function getUids(): array;
 
 	/**
-	 * @return string
-	 * @since 18.0.0
-	 */
-	public function getChannel(): string;
-
-	/**
 	 * @return JsonSerializable the data to be sent to the client
 	 * @since 18.0.0
 	 */

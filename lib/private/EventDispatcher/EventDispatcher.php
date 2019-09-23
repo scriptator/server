@@ -81,10 +81,7 @@ class EventDispatcher implements IEventDispatcher {
 			// Propagate broadcast
 			$this->dispatch(
 				IBroadcastEvent::class,
-				new BroadcastEvent(
-					$event->broadcastAs(),
-					$event
-				)
+				new BroadcastEvent($event)
 			);
 		}
 	}

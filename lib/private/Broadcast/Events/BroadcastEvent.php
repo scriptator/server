@@ -9,30 +9,21 @@ use OCP\EventDispatcher\Event;
 
 class BroadcastEvent extends Event implements IBroadcastEvent {
 
-	/** @var string */
-	private $name;
-
 	/** @var ABroadcastedEvent */
 	private $event;
 
-	public function __construct(string $name,
-								ABroadcastedEvent $event) {
+	public function __construct(ABroadcastedEvent $event) {
 		parent::__construct();
 
-		$this->name = $name;
 		$this->event = $event;
 	}
 
 	public function getName(): string {
-		return $this->name;
+		return $this->event->broadcastAs();
 	}
 
 	public function getUids(): array {
 		return $this->event->getUids();
-	}
-
-	public function getChannel(): string {
-		return $this->event->getChannel();
 	}
 
 	public function getPayload(): JsonSerializable {

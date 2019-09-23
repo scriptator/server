@@ -24,42 +24,48 @@ class Test extends Command {
 			->setName('broadcast:test')
 			->setDescription('test the SSE broadcaster')
 			->addArgument(
-				'channel',
+				'uid',
+				InputArgument::REQUIRED,
+				'the UID of the users to receive the event'
+			)
+			->addArgument(
+				'name',
 				InputArgument::OPTIONAL,
-				'the channel to broadcast to',
+				'the event name',
 				'test'
 			);
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output) {
-		$channel = $input->getArgument('channel');
+		$name = $input->getArgument('name');
+		$uid = $input->getArgument('uid');
 
-		$event = new class($channel) extends ABroadcastedEvent {
+		$event = new class($name, $uid) extends ABroadcastedEvent {
 			/** @var string */
-			private $channel;
+			private $name;
+			/** @var string */
+			private $uid;
 
-			public function __construct(string $channel) {
+			public function __construct(string $name,
+										string $uid) {
 				parent::__construct();
-				$this->channel = $channel;
+				$this->name = $name;
+				$this->uid = $uid;
 			}
 
 			public function broadcastAs(): string {
-				return 'test';
+				return $this->name;
 			}
 
 			public function getUids(): array {
 				return [
-					'admin',
+					$this->uid,
 				];
-			}
-
-			public function getChannel(): string {
-				return $this->channel;
 			}
 
 			public function serialize(): array {
 				return [
-					'test' => 'yay',
+					'description' => 'this is a test event',
 				];
 			}
 		};
