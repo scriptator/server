@@ -43,6 +43,10 @@ class Test extends Command {
 				$this->channel = $channel;
 			}
 
+			public function broadcastAs(): string {
+				return 'test';
+			}
+
 			public function getUids(): array {
 				return [
 					'admin',
@@ -53,7 +57,7 @@ class Test extends Command {
 				return $this->channel;
 			}
 
-			public function jsonSerialize() {
+			public function serialize(): array {
 				return [
 					'test' => 'yay',
 				];

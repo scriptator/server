@@ -82,7 +82,7 @@ class EventDispatcher implements IEventDispatcher {
 			$this->dispatch(
 				IBroadcastEvent::class,
 				new BroadcastEvent(
-					$eventName,
+					$event->broadcastAs(),
 					$event
 				)
 			);
