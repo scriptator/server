@@ -428,27 +428,33 @@
 				return a.order - b.order;
 			})
 			var uniqueIds = [];
-			this.headers.forEach((header) => {
+			var self = this;
+			this.headers.forEach(function(header) {
 				if (header.id) {
 					if (uniqueIds.indexOf(header.id) !== -1) {
 						return
 					}
 					uniqueIds.push(header.id)
 				}
-				this.$header.append(header.el)
-				setTimeout(() => header.render(this), 0)
+				self.$header.append(header.el)
+
+				setTimeout(function() {
+					header.render(self)
+				}, 0)
 			})
 
 			uniqueIds = [];
-			this.footers.forEach((footer) => {
+			this.footers.forEach(function(footer) {
 				if (footer.id) {
 					if (uniqueIds.indexOf(footer.id) !== -1) {
 						return
 					}
 					uniqueIds.push(footer.id)
 				}
-				this.$footer.append(footer.el)
-				setTimeout(() => footer.render(this), 0)
+				self.$footer.append(footer.el)
+				setTimeout(function() {
+					header.footer(self)
+				}, 0)
 			})
 		},
 
