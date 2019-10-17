@@ -108,7 +108,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareLinkRow() {
-		return Locator::forThe()->css(".linkShareView .shareWithList:first-child")->
+		return Locator::forThe()->css(".sharing-link-list .sharing-entry__link:first-child")->
 				descendantOf(FilesAppContext::detailsView())->
 				describedAs("Share link row in the details view in Files app");
 	}
@@ -119,7 +119,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	public static function shareLinkAddNewButton() {
 		// When there is no link share the "Add new share" item is shown instead
 		// of the menu button as a direct child of ".share-menu".
-		return Locator::forThe()->css(".share-menu > .new-share")->
+		return Locator::forThe()->css(".new-share-link")->
 				descendantOf(self::shareLinkRow())->
 				describedAs("Add new share link button in the details view in Files app");
 	}
@@ -128,7 +128,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function copyLinkButton() {
-		return Locator::forThe()->css("a.clipboard-button")->
+		return Locator::forThe()->css("a.sharing-entry__copy")->
 				descendantOf(self::shareLinkRow())->
 				describedAs("Copy link button in the details view in Files app");
 	}
@@ -137,7 +137,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareLinkMenuButton() {
-		return Locator::forThe()->css(".share-menu > .icon")->
+		return Locator::forThe()->css(".sharing-entry__actions .action-item__menutoggle")->
 				descendantOf(self::shareLinkRow())->
 				describedAs("Share link menu button in the details view in Files app");
 	}
@@ -146,7 +146,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareLinkMenu() {
-		return Locator::forThe()->css(".share-menu > .menu")->
+		return Locator::forThe()->css(".sharing-entry__actions .action-item__menu")->
 				descendantOf(self::shareLinkRow())->
 				describedAs("Share link menu in the details view in Files app");
 	}

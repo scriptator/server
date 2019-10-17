@@ -21,6 +21,7 @@
 
 import $ from 'jquery'
 import './Polyfill/index'
+import '@babel/polyfill'
 
 // If you remove the line below, tests won't pass
 // eslint-disable-next-line no-unused-vars
