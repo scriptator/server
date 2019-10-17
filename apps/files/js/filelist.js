@@ -453,7 +453,7 @@
 				}
 				self.$footer.append(footer.el)
 				setTimeout(function() {
-					header.footer(self)
+					footer.render(self)
 				}, 0)
 			})
 		},
@@ -3698,9 +3698,9 @@
 			);
 		},
 
-		registerFooter: function(header) {
+		registerFooter: function(footer) {
 			this.footers.push(
-				_.defaults(header, { order: 0 })
+				_.defaults(footer, { order: 0 })
 			);
 		}
 	};
