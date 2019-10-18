@@ -31,7 +31,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function sharedByLabel() {
-		return Locator::forThe()->css(".reshare")->
+		return Locator::forThe()->css(".sharing-entry__reshare")->
 				descendantOf(FilesAppContext::detailsView())->
 				describedAs("Shared by label in the details view in Files app");
 	}
@@ -40,7 +40,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareWithInput() {
-		return Locator::forThe()->css(".shareWithField")->
+		return Locator::forThe()->css(".sharing-input .multiselect__input")->
 				descendantOf(FilesAppContext::detailsView())->
 				describedAs("Share with input in the details view in Files app");
 	}
@@ -48,8 +48,26 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	/**
 	 * @return Locator
 	 */
+	public static function shareWithInputResults() {
+		return Locator::forThe()->css(".sharing-input .multiselect__content-wrapper")->
+				descendantOf(FilesAppContext::detailsView())->
+				describedAs("Share with input results list in the details view in Files app");
+	}
+
+	/**
+	 * @return Locator
+	 */
+	public static function shareWithInputResult($result) {
+		return Locator::forThe()->xpath("//li[contains(concat(' ', normalize-space(@class), ' '), ' multiselect__element ')]//span[normalize-space() = '$result']/ancestor::li")->
+				descendantOf(self::shareWithInputResults())->
+				describedAs("Share with input result from the results list in the details view in Files app");
+	}
+
+	/**
+	 * @return Locator
+	 */
 	public static function shareeList() {
-		return Locator::forThe()->css(".shareeListView")->
+		return Locator::forThe()->css(".sharing-sharee-list")->
 				descendantOf(FilesAppContext::detailsView())->
 				describedAs("Sharee list in the details view in Files app");
 	}
@@ -60,7 +78,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	public static function sharedWithRow($sharedWithName) {
 		// "username" class is used for any type of share, not only for shares
 		// with users.
-		return Locator::forThe()->xpath("//span[contains(concat(' ', normalize-space(@class), ' '), ' username ') and normalize-space() = '$sharedWithName']/ancestor::li")->
+		return Locator::forThe()->xpath("//li[contains(concat(' ', normalize-space(@class), ' '), ' sharing-entry ')]//h5[normalize-space() = '$sharedWithName']/ancestor::li")->
 				descendantOf(self::shareeList())->
 				describedAs("Shared with $sharedWithName row in the details view in Files app");
 	}
@@ -69,7 +87,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareWithMenuButton($sharedWithName) {
-		return Locator::forThe()->css(".share-menu > .icon")->
+		return Locator::forThe()->css(".sharing-entry__actions > .action-item__menutoggle")->
 				descendantOf(self::sharedWithRow($sharedWithName))->
 				describedAs("Share with $sharedWithName menu button in the details view in Files app");
 	}
@@ -78,7 +96,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function shareWithMenu($sharedWithName) {
-		return Locator::forThe()->css(".share-menu > .menu")->
+		return Locator::forThe()->css(".sharing-entry__actions > .action-item__menu")->
 				descendantOf(self::sharedWithRow($sharedWithName))->
 				describedAs("Share with $sharedWithName menu in the details view in Files app");
 	}
@@ -257,7 +275,9 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	public function iShareWith($fileName, $shareWithName) {
 		$this->actor->find(FileListContext::shareActionForFile(FilesAppContext::currentSectionMainView(), $fileName), 10)->click();
 
-		$this->actor->find(self::shareWithInput(), 5)->setValue($shareWithName . "\r");
+		$this->actor->find(self::shareWithInput(), 5)->setValue($shareWithName);
+		sleep(2);
+		$this->actor->find(self::shareWithInputResult($shareWithName), 5)->click();
 	}
 
 	/**
