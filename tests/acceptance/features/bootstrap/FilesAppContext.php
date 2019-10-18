@@ -89,7 +89,7 @@ class FilesAppContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function closeDetailsViewButton() {
-		return Locator::forThe()->css(".app-sidebar__close")->
+		return Locator::forThe()->css(".icon-close")->
 				descendantOf(self::detailsView())->
 				describedAs("Close details view in Files app");
 	}

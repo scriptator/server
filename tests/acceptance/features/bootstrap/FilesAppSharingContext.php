@@ -137,7 +137,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	public static function shareLinkAddNewButton() {
 		// When there is no link share the "Add new share" item is shown instead
 		// of the menu button as a direct child of ".share-menu".
-		return Locator::forThe()->css(".new-share-link")->
+		return Locator::forThe()->css(".action-item.icon-add")->
 				descendantOf(self::shareLinkRow())->
 				describedAs("Add new share link button in the details view in Files app");
 	}
