@@ -209,16 +209,16 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function passwordProtectField() {
-		return Locator::forThe()->css(".linkPassText")->descendantOf(self::shareLinkMenu())->
+		return Locator::forThe()->css(".share-link-password input.action-input__input")->descendantOf(self::shareLinkMenu())->
 				describedAs("Password protect field in the details view in Files app");
 	}
 
 	/**
 	 * @return Locator
 	 */
-	public static function passwordProtectWorkingIcon() {
-		return Locator::forThe()->css(".linkPassMenu .icon-loading-small")->descendantOf(self::shareLinkMenu())->
-				describedAs("Password protect working icon in the details view in Files app");
+	public static function passwordProtectDisabledWhileLoading() {
+		return Locator::forThe()->css(".share-link-password form input.action-input__input[disabled]")->descendantOf(self::shareLinkMenu())->
+				describedAs("Password protect disabled input in the details view in Files app");
 	}
 
 	/**
@@ -269,7 +269,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 		// Clicking on the menu item copies the link to the clipboard, but it is
 		// not possible to access that value from the acceptance tests. Due to
 		// this the value of the attribute that holds the URL is used instead.
-		$this->actor->getSharedNotebook()["shared link"] = $this->actor->find(self::copyLinkButton(), 2)->getWrappedElement()->getAttribute("data-clipboard-text");
+		$this->actor->getSharedNotebook()["shared link"] = $this->actor->find(self::copyLinkButton(), 2)->getWrappedElement()->getAttribute("href");
 	}
 
 	/**
@@ -412,10 +412,10 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	}
 
 	/**
-	 * @Then I see that the working icon for password protect is shown
+	 * @Then I see that the password protect is disabled while loading
 	 */
 	public function iSeeThatTheWorkingIconForPasswordProtectIsShown() {
-		PHPUnit_Framework_Assert::assertNotNull($this->actor->find(self::passwordProtectWorkingIcon(), 10));
+		PHPUnit_Framework_Assert::assertNotNull($this->actor->find(self::passwordProtectDisabledWhileLoading(), 10));
 	}
 
 	/**
@@ -424,7 +424,7 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 	public function iSeeThatTheWorkingIconForPasswordProtectIsEventuallyNotShown() {
 		if (!WaitFor::elementToBeEventuallyNotShown(
 				$this->actor,
-				self::passwordProtectWorkingIcon(),
+				self::passwordProtectDisabledWhileLoading(),
 				$timeout = 10 * $this->actor->getFindTimeoutMultiplier())) {
 			PHPUnit_Framework_Assert::fail("The working icon for password protect is still shown after $timeout seconds");
 		}
