@@ -26,8 +26,9 @@ Feature: app-comments
     And I create a new comment with "Comment in Folder" as message
     And I see a comment with "Comment in Folder" as message
     And I open the details view for "welcome.txt"
-    # The "Comments" tab should already be opened
-    When I create a new comment with "Comment in welcome.txt" as message
+    And I see that there are no comments
+    When I open the "Comments" tab in the details view
+    And I create a new comment with "Comment in welcome.txt" as message
     Then I see a comment with "Comment in welcome.txt" as message
     And I see that there is no comment with "Comment in Folder" as message
 

@@ -214,7 +214,7 @@ class FilesAppContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function tabInDetailsViewNamed($tabName) {
-		return Locator::forThe()->xpath("//li[contains(concat(' ', normalize-space(@class), ' '), ' app-sidebar-tabs__tab ') and normalize-space() = '$tabName']/a[@role='tab']")->
+		return Locator::forThe()->xpath("//div[contains(concat(' ', normalize-space(@class), ' '), ' app-sidebar-tabs__content ')]/section[@aria-labelledby = '$tabName' and @role = 'tabpanel']")->
 				descendantOf(self::detailsView())->
 				describedAs("Tab named $tabName in details view in Files app");
 	}
@@ -223,7 +223,7 @@ class FilesAppContext implements Context, ActorAwareInterface {
 	 * @return Locator
 	 */
 	public static function loadingIconForTabInDetailsViewNamed($tabName) {
-		return Locator::forThe()->css(".loading")->
+		return Locator::forThe()->css(".icon-loading")->
 				descendantOf(self::tabInDetailsViewNamed($tabName))->
 				describedAs("Loading icon for tab named $tabName in details view in Files app");
 	}
