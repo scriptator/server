@@ -276,7 +276,10 @@ class FilesAppSharingContext implements Context, ActorAwareInterface {
 		$this->actor->find(FileListContext::shareActionForFile(FilesAppContext::currentSectionMainView(), $fileName), 10)->click();
 
 		$this->actor->find(self::shareWithInput(), 5)->setValue($shareWithName);
-		sleep(2);
+		// "setValue()" ends sending a tab, which unfocuses the input and causes
+		// the results to be hidden, so the input needs to be clicked to show
+		// the results again.
+		$this->actor->find(self::shareWithInput())->click();
 		$this->actor->find(self::shareWithInputResult($shareWithName), 5)->click();
 	}
 
